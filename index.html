@@ -3,53 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Calculator</title>
+  
+  <title>Harry Phantom Advanced Calculator</title>
+  <meta name="description" content="Harry Phantom Advanced Calculator. Online calculator with square, square root, percentage, and more.">
+  <meta name="keywords" content="calculator, advanced calculator, online calculator, math, harry phantom">
+  <meta name="author" content="Waleed Ishrat (Harry Phantom)">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Harry Phantom Advanced Calculator",
+    "url": "https://harryphantom.co",
+    "applicationCategory": "Utility",
+    "operatingSystem": "Web"
+  }
+  </script>
+
   <style>
     body {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: #f4f4f9;
-      font-family: Arial, sans-serif;
+      background: #0d1117;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
     }
+
     .calculator {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+      background: #161b22;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #0f6fff;
     }
+
     input {
       width: 100%;
-      height: 50px;
+      height: 60px;
       margin-bottom: 15px;
       text-align: right;
-      font-size: 1.5em;
+      font-size: 2em;
       padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+      border-radius: 10px;
+      border: 1px solid #0f6fff;
+      background: #0d1117;
+      color: #0f6fff;
     }
+
     .buttons {
       display: grid;
-      grid-template-columns: repeat(4, 70px);
-      gap: 10px;
+      grid-template-columns: repeat(4, 80px);
+      gap: 12px;
     }
+
     button {
       height: 60px;
-      font-size: 1.2em;
+      font-size: 1.3em;
       border: none;
-      border-radius: 10px;
-      background: #eee;
+      border-radius: 12px;
       cursor: pointer;
       transition: 0.2s;
+      background: #0d1117;
+      color: #0f6fff;
+      box-shadow: 0 0 8px #0f6fff;
     }
+
     button:hover {
-      background: #ddd;
+      background: #0f6fff;
+      color: #0d1117;
+      box-shadow: 0 0 12px #0f6fff;
     }
+
     .equal {
       grid-column: span 2;
-      background: #007bff;
-      color: white;
+      background: #0f6fff;
+      color: #0d1117;
+      box-shadow: 0 0 12px #0f6fff;
+    }
+
+    .wide {
+      grid-column: span 2;
     }
   </style>
 </head>
@@ -58,31 +92,37 @@
     <input type="text" id="display" disabled>
     <div class="buttons">
       <button onclick="clearDisplay()">C</button>
+      <button onclick="backspace()">←</button>
+      <button onclick="appendValue('%')">%</button>
       <button onclick="appendValue('/')">÷</button>
-      <button onclick="appendValue('*')">×</button>
-      <button onclick="appendValue('-')">-</button>
 
       <button onclick="appendValue('7')">7</button>
       <button onclick="appendValue('8')">8</button>
       <button onclick="appendValue('9')">9</button>
-      <button onclick="appendValue('+')">+</button>
+      <button onclick="appendValue('*')">×</button>
 
       <button onclick="appendValue('4')">4</button>
       <button onclick="appendValue('5')">5</button>
       <button onclick="appendValue('6')">6</button>
-      <button onclick="appendValue('.')">.</button>
+      <button onclick="appendValue('-')">-</button>
 
       <button onclick="appendValue('1')">1</button>
       <button onclick="appendValue('2')">2</button>
       <button onclick="appendValue('3')">3</button>
+      <button onclick="appendValue('+')">+</button>
+
+      <button onclick="appendValue('0')" class="wide">0</button>
+      <button onclick="appendValue('.')">.</button>
       <button onclick="calculate()" class="equal">=</button>
 
-      <button onclick="appendValue('0')" style="grid-column: span 2;">0</button>
+      <button onclick="square()">x²</button>
+      <button onclick="sqrt()">√</button>
+      <button onclick="plusMinus()">±</button>
     </div>
   </div>
 
   <script>
-    let display = document.getElementById('display');
+    const display = document.getElementById('display');
 
     function appendValue(value) {
       display.value += value;
@@ -90,6 +130,36 @@
 
     function clearDisplay() {
       display.value = '';
+    }
+
+    function backspace() {
+      display.value = display.value.slice(0, -1);
+    }
+
+    function plusMinus() {
+      if (display.value) {
+        if (display.value.startsWith('-')) {
+          display.value = display.value.slice(1);
+        } else {
+          display.value = '-' + display.value;
+        }
+      }
+    }
+
+    function square() {
+      try {
+        display.value = Math.pow(eval(display.value), 2);
+      } catch {
+        display.value = 'Error';
+      }
+    }
+
+    function sqrt() {
+      try {
+        display.value = Math.sqrt(eval(display.value));
+      } catch {
+        display.value = 'Error';
+      }
     }
 
     function calculate() {
@@ -102,3 +172,4 @@
   </script>
 </body>
 </html>
+
